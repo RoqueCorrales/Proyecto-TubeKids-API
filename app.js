@@ -8,6 +8,11 @@ const app = express();
 const cors = require('cors');
 var md_auth = require('../Proyecto-TubeKids-API/middleware/authenticate');
 
+var multipart = require('connect-multiparty');
+var md_upload = multipart({uploadDir: './uploads/videos'});
+
+const fileUpload = require('express-fileupload');
+
 const http = require("http");
 const server = http.createServer(app);
 const tokenList = {};
@@ -100,7 +105,7 @@ var video = express.Router();
 
 video.route('/videos')
 .get(md_auth.ensureAuth,VideoCTRL.findAllVideos)
-.post(md_auth.ensureAuth,VideoCTRL.addVideo);
+.post(VideoCTRL.addVideo);
 
 video.route('/videos/:id')
 .get(md_auth.ensureAuth,VideoCTRL.findById)

@@ -1,5 +1,3 @@
-var http = require('http');
-var formidable = require('formidable');
 
 function uploadFile(req, res){
 	var videoId = req.params.id;

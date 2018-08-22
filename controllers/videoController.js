@@ -1,6 +1,11 @@
 var mongoose = require('mongoose');
 var Video = mongoose.model('videos');
 
+
+var path = require('path');
+
+
+
 //const express = require('express');
 
 //app.use(express.json());
@@ -46,10 +51,10 @@ exports.addVideo = function(req, res){
    video.detail = req.body.detail;
    video.userId = req.body.userId;
    video.url = req.body.url;
-   video.local = req.body.local;
    video.approvalstatus = true;
    video.agePermission = req.body.agePermission;
 
+   //video.local = uploadFile(req.body.local);
   
    video.save(function(err){
     if(err) {
@@ -106,4 +111,38 @@ exports.deleteVideo = function(req, res){
 
         
     });
+}
+// subir archivo video localmente
+
+
+
+function uploadFile(filename){
+    
+    
+
+	if (filename) {
+		
+        var file_path = filename.path; //fichero el cual va a subir
+        var file_split = file_path.split('\/'); //recortar para obtener el nombre de la imagen
+        var file_name = file_split[2]; //se recoje el campo 3 del arreglo, porque ahi se encuentra el nombre de la imagen
+
+        var ext_split = file_name.split('\.'); //se recorta para obtner la extencion del archivo
+        var file_ext = ext_split[1]; //se recoje el campo 2. porque ahi esta la extencion despues del split
+
+		if (file_ext == 'mp4' || file_ext == 'avi' || file_ext == 'm4v') {
+
+            console.log(filename);    
+       return file_name;
+    }
+}
+}
+
+
+function uploadVideo(req){
+    let EDFile = req.files.file
+    EDFile.mv(`./uploads/videos/${EDFile.name}`,err => {
+        if(err) return false;
+
+        return true;
+    })
 }
