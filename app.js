@@ -111,7 +111,11 @@ video.route('/videos/:id')
 .get(md_auth.ensureAuth,VideoCTRL.findById)
 
 .put(md_auth.ensureAuth,VideoCTRL.updateVideo)
+
 .delete(md_auth.ensureAuth,VideoCTRL.deleteVideo);
+
+video.route('/videos/updateVideoLocal/:id')
+.put(md_auth.ensureAuth,VideoCTRL.updateVideoLocal);
 
 
 app.use('/api', video);

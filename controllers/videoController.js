@@ -42,7 +42,6 @@ exports.findById = function(req, res){
 
 exports.addVideo = function(req, res){
 
-    
     var video = new Video();
 
    video.name = req.body.name;
@@ -54,7 +53,7 @@ exports.addVideo = function(req, res){
    video.approvalstatus = true;
    video.agePermission = req.body.agePermission;
 
-   //video.local = uploadFile(req.body.local);
+   video.local =req.body.local;
   
    video.save(function(err){
     if(err) {
@@ -88,7 +87,37 @@ exports.updateVideo = function(req,res){
     });
 }
 
+// updateVideoLocal
+exports.updateVideoLocal = function(req,res){
+    var update = req.body;
+    
+    if (!req.files)
+    return res.status(400).send('No hay archivos para subir.');
+ 
+  // The name of the file
+  let sampleFile = req.params.id;
+ 
+  // move to the dir
+  sampleFile.mv('/uploads/videos', function(err) {
+    if (err)
+      return res.status(500).send(err);
+  });
+    VIdeo.findByIdAndUpdate(req.params.id,update,(err, videoUpdated)=>{
+      
+        if(err){
+            res.status(500).send({message: 'Error al actualizar el video'});
 
+        }else{
+            if(!videoUpdated){
+                res.status(404).send({message: 'No se ha podido actualizar el video'});
+            }else{
+                res.status(200).send({video:videoUpdated});
+            }
+        }
+
+        
+    });
+}
 
 // Delete a video
 
@@ -131,7 +160,7 @@ function uploadFile(filename){
 
 		if (file_ext == 'mp4' || file_ext == 'avi' || file_ext == 'm4v') {
 
-            console.log(filename);    
+            
        return file_name;
     }
 }

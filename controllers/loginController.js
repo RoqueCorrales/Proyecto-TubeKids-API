@@ -16,12 +16,16 @@ exports.findUserUsername = function (req,res){
         }else{
         
           if(!user){
-            res.status(404).send({message: 'El usuario no existe'});
+            res.status(401).send({message: 'El usuario no existe'});
           }else{
             //Comprobacion de contrasenna
             bcrypt.compare(req.body.password, user.password, function(err,check)
           {
             if (check) {
+              //si esta verificada la cuenta
+              if(!user.isVerificated){
+                res.status(401).send({message: 'Cuenta NO verificada'});
+              }
               //devolver los datos del usuario logueado
               if (req.body.gethash) {
                 //devolver un token jwt
@@ -32,7 +36,7 @@ exports.findUserUsername = function (req,res){
                 res.status(200).send({user});
               }
             }else{
-              res.status(404).send({message: 'La contraseña es incorrecta'});
+              res.status(401).send({message: 'La contraseña es incorrecta'});
             }
           });	
         }
