@@ -7,11 +7,10 @@ const video = new Schema({
     userId:  { type: Schema.ObjectId, ref: 'User' },
     url:{type: String},
     local:{type:String},
-    approvalstatus:{type:Boolean,default:false}
-    
+    approvalstatus:{type:Boolean,default:false},
+    agePermission:{type:Number}
     
 
-    
 });
 
 module.exports = mongoose.model('videos', video);

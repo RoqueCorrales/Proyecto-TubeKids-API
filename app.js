@@ -33,6 +33,7 @@ var UserCTRL = require('./controllers/userController');
 var VideoCTRL = require('./controllers/videoController');
 var ProfileCTRL = require('./controllers/profileController');
 var LoginController = require('./controllers/loginController');
+var PlaylistCTRL = require('./controllers/playlistController');
 
 app.set('view engine', 'pug');
 // this is where we can put the public contents like css and js files
@@ -109,6 +110,20 @@ video.route('/videos/:id')
 
 
 app.use('/api', video);
+//API ROUTES PLAYLIST
+
+var playlist = express.Router();
+
+playlist.route('/playlists')
+.get(md_auth.ensureAuth, PlaylistCTRL.findAllPlaylists)
+.post(md_auth.ensureAuth,PlaylistCTRL.addPlaylist);
+
+playlist.route('/playlists/:id')
+.get(md_auth.ensureAuth,PlaylistCTRL.findById)
+.put(md_auth.ensureAuth,PlaylistCTRL.updatePlaylist)
+.delete(md_auth.ensureAuth,PlaylistCTRL.deletePlaylist);
+
+app.use('/api', user);
 
 
 

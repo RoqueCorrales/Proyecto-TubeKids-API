@@ -4,8 +4,9 @@ const Schema = mongoose.Schema;
 const profile = new Schema({
     name: { type: String },
     userName:{type: String},
+    userId:  { type: Schema.ObjectId, ref: 'User' },
     pin:{type:String},
-    birthDate:{type:String},
+    age:{type: Number},
     approvalstatus:{type:Boolean,default:false}
     
 });

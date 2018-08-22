@@ -6,15 +6,10 @@ var User = mongoose.model('users');
 
 var user = new User;
 
-
-
-
-
 exports.findUserUsername = function (req,res){
 
   User.findOne({email: req.body.email}, {}, function(err, user){
 
-console.log(user);
         if(err){
           res.status(500).send({message:'Error en la peticion'});
 
@@ -23,7 +18,7 @@ console.log(user);
           if(!user){
             res.status(404).send({message: 'El usuario no existe'});
           }else{
-            //COmprobacion de contrasenna
+            //Comprobacion de contrasenna
             bcrypt.compare(req.body.password, user.password, function(err,check)
           {
             if (check) {

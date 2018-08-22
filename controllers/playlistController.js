@@ -1,81 +1,69 @@
-var mongoose = require('mongoose');
-var Video = mongoose.model('videos');
+var Playlist = require('../models/playlistModel');
 
-//const express = require('express');
+//Get - Return all playlists in the db
 
-//app.use(express.json());
+exports.findAllPlaylists = function(req,res){
 
-
-//Get - Return all Users in the db
-
-exports.findAllVideos = function(req,res){
-
-    Video.find(function(err,videos){
+    Playlist.find(function(err,playlists){
         if(err) {
             res.status(422);
             res.json({error: err});
         }
         res.status(200);
-        res.json(videos);
+        res.json(playlists);
     });
 };
 
-// retun a specific video
+// retun a specific playlist
 exports.findById = function(req, res){
-    Video.findById(req.params.id, function(err,video){
+    Playlist.findById(req.params.id, function(err,playlist){
         if(err) {
             res.status(422);
             res.json({error: err});
         }
         res.status(200);
-        res.json(video);
+        res.json(playlist);
     });
 
 };
 
-// create a new video
+// create a new playlist
 
-exports.addVideo = function(req, res){
+exports.addPlaylist = function(req, res){
 
     
-    var video = new Video();
+    var playlist = new PLaylist();
+    
+    playlist.userId = req.body.userId;
+    playlist.videoId = req.body.videoId;
 
-   video.name = req.body.name;
-  
-
-   video.detail = req.body.detail;
-   video.userId = req.body.userId;
-   video.url = req.body.url;
-   video.local = req.body.local;
-   video.approvalstatus = true;
-   video.agePermission = req.body.agePermission;
 
   
-   video.save(function(err){
+   playlist.save(function(err){
     if(err) {
         res.status(422);
         res.json({error: err});
     }
     res.status(201);
-    res.json(video);
+    res.json(playlist);
 });
 };
 
-// Put - Update a Video
+// Put - Update a playlist
 
 
-exports.updateVideo = function(req,res){
+exports.updatePlaylist = function(req,res){
     var update = req.body;
-    VIdeo.findByIdAndUpdate(req.params.id,update,(err, videoUpdated)=>{
+    Playlist.findByIdAndUpdate(req.params.id,update,(err, playlistUpdated)=>{
       
         if(err){
-            res.status(500).send({message: 'Error al actualizar el video'});
+            res.status(500).send({message: 'Error al actualizar la playlist'});
 
         }else{
-            if(!videoUpdated){
+            if(!playlistUpdated){
                 res.status(404).send({message: 'No se ha podido actualizar el video'});
             }else{
-                res.status(200).send({video:videoUpdated});
+                res.status(200).send({playlist:playlistUpdated});
             }
         }
 
@@ -87,7 +75,7 @@ exports.updateVideo = function(req,res){
 
 // Delete a video
 
-exports.deleteVideo = function(req, res){
+exports.deletePlaylist = function(req, res){
     req.body.approvalstatus = false;
     var update = req.body;
  
