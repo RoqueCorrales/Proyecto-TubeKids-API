@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var Profile = mongoose.model('profiles');
 
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
 
 
 //Get - Return all Profiles in the db
@@ -146,12 +149,18 @@ exports.deleteProfile = function (req, res) {
  */
 exports.findAllProfilesWhereStatusTRUE = function (req, res) {
 
-    Profile.find({ approvalstatus: { $eq: true } } )(function (err, profiles) {
-        if (err) {
-            res.status(422);
-            res.json({ error: err });
-        }
-        res.status(200);
-        res.json(profiles);
-    });
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("api");
+        var query = { approvalstatus: "true" };
+        dbo.collection("profiles").find(query).toArray(function(err, profiles) {
+            if (err) {
+                res.status(422);
+                res.json({ error: err });
+            }
+            res.status(200);
+            res.json(profiles);
+          db.close();
+        });
+      }); 
 };
