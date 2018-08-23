@@ -94,7 +94,7 @@ exports.addVideo = function (req, res) {
  */
 exports.updateVideo = function (req, res) {
     var update = req.body;
-    VIdeo.findByIdAndUpdate(req.params.id, update, (err, videoUpdated) => {
+    Video.findByIdAndUpdate(req.params.id, update, (err, videoUpdated) => {
 
         if (err) {
             res.status(500).send({ message: 'Error al actualizar el video' });
