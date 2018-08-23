@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Playlist = mongoose.model('playlists');
+var SongList = mongoose.model('playlists');
 
 
 
@@ -19,7 +19,7 @@ var url = "mongodb://localhost:27017/";
  */
 exports.findAllPlaylists = function (req, res) {
 
-    Playlist.find(function (err, playlists) {
+    SongList.find(function (err, playlists) {
         if (err) {
             res.status(422);
             res.json({ error: err });
@@ -38,7 +38,7 @@ exports.findAllPlaylists = function (req, res) {
  * @return playlist solicitado.
  */
 exports.findById = function (req, res) {
-    Playlist.findById(req.params.id, function (err, playlist) {
+    SongList.findById(req.params.id, function (err, playlist) {
         if (err) {
             res.status(422);
             res.json({ error: err });
@@ -60,7 +60,7 @@ exports.findById = function (req, res) {
  */
 exports.addPlaylist = function (req, res) {
 
-    var playlist = new PLaylist();
+    var playlist = new SongList();
 
     playlist.userId = req.body.userId;
     playlist.videoId = req.body.videoId;
@@ -89,7 +89,7 @@ exports.addPlaylist = function (req, res) {
  */
 exports.updatePlaylist = function (req, res) {
     var update = req.body;
-    Playlist.findByIdAndUpdate(req.params.id, update, (err, playlistUpdated) => {
+    SongList.findByIdAndUpdate(req.params.id, update, (err, playlistUpdated) => {
 
         if (err) {
             res.status(500).send({ message: 'Error al actualizar la playlist' });
