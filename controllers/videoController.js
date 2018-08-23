@@ -62,7 +62,7 @@ exports.addVideo = function (req, res) {
     var video = new Video();
 
     video.name = req.body.name;
-
+    video.name = video.name.toLowerCase();
 
     video.detail = req.body.detail;
     video.userId = req.body.userId;
