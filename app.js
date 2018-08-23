@@ -79,7 +79,7 @@ app.use('/api', user);
 var profile = express.Router();
 
 profile.route('/profiles')
-    .get(md_auth.ensureAuth, ProfileCTRL.findAllProfiles)
+   // .get(md_auth.ensureAuth, ProfileCTRL.findAllProfiles)
     .post(md_auth.ensureAuth, ProfileCTRL.addProfile)
     .get(md_auth.ensureAuth, ProfileCTRL.findAllProfilesWhereStatusTRUE);
 

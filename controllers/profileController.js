@@ -152,7 +152,7 @@ exports.findAllProfilesWhereStatusTRUE = function (req, res) {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("api");
-        var query = { approvalstatus: "true" };
+        var query = { approvalstatus: true };
         dbo.collection("profiles").find(query).toArray(function(err, profiles) {
             if (err) {
                 res.status(422);
