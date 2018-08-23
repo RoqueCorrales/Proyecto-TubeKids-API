@@ -122,11 +122,11 @@ app.use('/api', video);
 var playlist = express.Router();
 
 playlist.route('/playlists')
-    .get(md_auth.ensureAuth, PlaylistCTRL.findAllVideosWhereIDProfile)
+    
     .post(md_auth.ensureAuth, PlaylistCTRL.addPlaylist);
 
 playlist.route('/playlists/:id')
-    .get(md_auth.ensureAuth, PlaylistCTRL.findById)
+    .get(md_auth.ensureAuth, PlaylistCTRL.findAllVideosWhereIDProfile)
     .put(md_auth.ensureAuth, PlaylistCTRL.updatePlaylist)
     .delete(md_auth.ensureAuth, PlaylistCTRL.deletePlaylist);
 
