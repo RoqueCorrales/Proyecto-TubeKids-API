@@ -6,7 +6,7 @@ const profile = new Schema({
     userName: { type: String },
     userId: { type: Schema.ObjectId, ref: 'User' },
     pin: { type: String },
-    age: { type: Number },
+    birthDate: { type: Number },
     approvalstatus: { type: Boolean, default: false }
 
 });
