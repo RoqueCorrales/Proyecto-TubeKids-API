@@ -11,6 +11,13 @@ var mailController = require('./mailController');
 
 //Get - Return all Users in the db
 
+/**
+ * Description
+ * @method findAllUsers
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.findAllUsers = function(req,res){
 
     User.find(function(err,users){
@@ -24,6 +31,13 @@ exports.findAllUsers = function(req,res){
 };
 
 // retun a specific user
+/**
+ * Description
+ * @method findById
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.findById = function(req, res){
     User.findById(req.params.id, function(err,user){
         if(err) {
@@ -38,6 +52,13 @@ exports.findById = function(req, res){
 
 // create a new user
 
+/**
+ * Description
+ * @method addUser
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.addUser = function(req, res){
 
 
@@ -94,6 +115,12 @@ exports.addUser = function(req, res){
 
 
 // Validar edad
+/**
+ * Description
+ * @method validarEdad
+ * @param {} fecha
+ * @return 
+ */
 function validarEdad(fecha){
   
     var m = moment(fecha, "MM-DD-YYYY");
@@ -117,6 +144,13 @@ function validarEdad(fecha){
 
 // Put - Update a user
 
+/**
+ * Description
+ * @method updateUser
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.updateUser = function(req,res){
     var update = req.body;
     User.findByIdAndUpdate(req.params.id,update,(err, userUpdated)=>{
@@ -138,6 +172,13 @@ exports.updateUser = function(req,res){
 
 // Delete a user
 
+/**
+ * Description
+ * @method deleteUser
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.deleteUser = function(req, res){
     req.body.approvalstatus = false;
     var update = req.body;
@@ -160,6 +201,13 @@ exports.deleteUser = function(req, res){
 }
 
 
+/**
+ * Description
+ * @method updateUserConfirmation
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.updateUserConfirmation = function(req,res){
     req.body.isVerificated = true;
     var update = req.body;
@@ -172,7 +220,7 @@ exports.updateUserConfirmation = function(req,res){
             if(!userUpdated){
                 res.status(404).send({message: 'No se ha podido confirmar la cuenta'});
             }else{
-                res.status(200).send({user:userUpdated});
+                res.status(200).send({message: 'Confirmacion exitosa, BIENVENIDO A TUBEKIDS'});
             }
         }
 

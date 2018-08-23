@@ -2,6 +2,13 @@ var Playlist = require('../models/playlistModel');
 
 //Get - Return all playlists in the db
 
+/**
+ * Description
+ * @method findAllPlaylists
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.findAllPlaylists = function(req,res){
 
     Playlist.find(function(err,playlists){
@@ -15,6 +22,13 @@ exports.findAllPlaylists = function(req,res){
 };
 
 // retun a specific playlist
+/**
+ * Description
+ * @method findById
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.findById = function(req, res){
     Playlist.findById(req.params.id, function(err,playlist){
         if(err) {
@@ -29,6 +43,13 @@ exports.findById = function(req, res){
 
 // create a new playlist
 
+/**
+ * Description
+ * @method addPlaylist
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.addPlaylist = function(req, res){
 
     
@@ -52,6 +73,13 @@ exports.addPlaylist = function(req, res){
 // Put - Update a playlist
 
 
+/**
+ * Description
+ * @method updatePlaylist
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.updatePlaylist = function(req,res){
     var update = req.body;
     Playlist.findByIdAndUpdate(req.params.id,update,(err, playlistUpdated)=>{
@@ -75,6 +103,13 @@ exports.updatePlaylist = function(req,res){
 
 // Delete a video
 
+/**
+ * Description
+ * @method deletePlaylist
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.deletePlaylist = function(req, res){
     req.body.approvalstatus = false;
     var update = req.body;

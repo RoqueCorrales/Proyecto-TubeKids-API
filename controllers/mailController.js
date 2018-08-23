@@ -1,6 +1,13 @@
 var nodemailer = require('nodemailer');
 
 // email sender function
+/**
+ * Description
+ * @method sendEmail
+ * @param {} body
+ * @param {} res
+ * @return 
+ */
 exports.sendEmail = function(body, res){
 // Definimos el transporter
     var transporter = nodemailer.createTransport({

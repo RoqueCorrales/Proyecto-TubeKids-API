@@ -7,7 +7,6 @@ const user = new Schema({
     lastName: {type: String, required: "El apellido es obligatorio"},
     country: { type: String },
     password: {type: String, required: "El contrasenna es obligatorio",minlength:[8,"Contrasenna es muy corta"]},
-  //  confirmPassword: {type: String, required: "El confirmar contrasenna es obligatorio"},
     birthDate: {type: String, required: "La fecha de nacimiento es obligatorio"},
     email: {type: String, required: "El correo es obligatorio"},
     admin: {type: Boolean },

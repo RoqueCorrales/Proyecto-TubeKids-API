@@ -5,6 +5,13 @@ var Profile = mongoose.model('profiles');
 
 //Get - Return all Profiles in the db
 
+/**
+ * Description
+ * @method findAllProfiles
+ * @param {} _req
+ * @param {} res
+ * @return 
+ */
 exports.findAllProfiles = function (_req, res) {
 
     Profile.find(function (err, profiles) {
@@ -18,6 +25,13 @@ exports.findAllProfiles = function (_req, res) {
 };
 
 // retun a specific profile
+/**
+ * Description
+ * @method findById
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.findById = function (req, res) {
     Profile.findById(req.params.id, function (err, profile) {
         if (err) {
@@ -32,6 +46,13 @@ exports.findById = function (req, res) {
 
 // create a new profile
 
+/**
+ * Description
+ * @method addProfile
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.addProfile = function (req, res) {
 
   
@@ -56,6 +77,13 @@ exports.addProfile = function (req, res) {
 
 // Put - Update a Profile
 
+/**
+ * Description
+ * @method updateProfile
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.updateProfile = function (req, res) {
     var update = req.body;
     Profile.findByIdAndUpdate(req.params.id,update,(err, profileUpdated)=>{
@@ -79,6 +107,13 @@ exports.updateProfile = function (req, res) {
 
 // Delete a profile
 
+/**
+ * Description
+ * @method deleteProfile
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.deleteProfile = function (req, res) {
     req.body.approvalstatus = false;
     var update = req.body;

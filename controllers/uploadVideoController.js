@@ -1,4 +1,11 @@
 
+/**
+ * Description
+ * @method uploadFile
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 function uploadFile(req, res){
 	var videoId = req.params.id;
 	var file_name = 'No subido';

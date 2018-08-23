@@ -13,6 +13,13 @@ var path = require('path');
 
 //Get - Return all Users in the db
 
+/**
+ * Description
+ * @method findAllVideos
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.findAllVideos = function(req,res){
 
     Video.find(function(err,videos){
@@ -26,6 +33,13 @@ exports.findAllVideos = function(req,res){
 };
 
 // retun a specific video
+/**
+ * Description
+ * @method findById
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.findById = function(req, res){
     Video.findById(req.params.id, function(err,video){
         if(err) {
@@ -40,6 +54,13 @@ exports.findById = function(req, res){
 
 // create a new video
 
+/**
+ * Description
+ * @method addVideo
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.addVideo = function(req, res){
 
     var video = new Video();
@@ -68,6 +89,13 @@ exports.addVideo = function(req, res){
 // Put - Update a Video
 
 
+/**
+ * Description
+ * @method updateVideo
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.updateVideo = function(req,res){
     var update = req.body;
     VIdeo.findByIdAndUpdate(req.params.id,update,(err, videoUpdated)=>{
@@ -88,6 +116,13 @@ exports.updateVideo = function(req,res){
 }
 
 // updateVideoLocal
+/**
+ * Description
+ * @method updateVideoLocal
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.updateVideoLocal = function(req,res){
     var update = req.body;
     
@@ -121,6 +156,13 @@ exports.updateVideoLocal = function(req,res){
 
 // Delete a video
 
+/**
+ * Description
+ * @method deleteVideo
+ * @param {} req
+ * @param {} res
+ * @return 
+ */
 exports.deleteVideo = function(req, res){
     req.body.approvalstatus = false;
     var update = req.body;
@@ -145,6 +187,12 @@ exports.deleteVideo = function(req, res){
 
 
 
+/**
+ * Description
+ * @method uploadFile
+ * @param {} filename
+ * @return 
+ */
 function uploadFile(filename){
     
     
@@ -167,6 +215,12 @@ function uploadFile(filename){
 }
 
 
+/**
+ * Description
+ * @method uploadVideo
+ * @param {} req
+ * @return 
+ */
 function uploadVideo(req){
     let EDFile = req.files.file
     EDFile.mv(`./uploads/videos/${EDFile.name}`,err => {

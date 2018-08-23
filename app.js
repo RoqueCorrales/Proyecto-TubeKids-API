@@ -79,7 +79,8 @@ user.route('/users/:id')
 .delete(md_auth.ensureAuth,UserCTRL.deleteUser);
 
 user.route('/users/confirmationEmail/:id')
-.put(UserCTRL.updateUserConfirmation)
+.get(UserCTRL.updateUserConfirmation)
+
 app.use('/api', user);
 
 
