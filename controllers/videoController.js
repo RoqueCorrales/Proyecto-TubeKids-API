@@ -103,7 +103,7 @@ exports.updateVideo = function (req, res) {
             if (!videoUpdated) {
                 res.status(404).send({ message: 'No se ha podido actualizar el video' });
             } else {
-                res.status(200).send({ video: videoUpdated });
+                res.status(200).send({ message: 'Video  Actualizado' });
             }
         }
 
