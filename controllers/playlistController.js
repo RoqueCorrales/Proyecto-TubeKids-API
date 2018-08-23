@@ -1,4 +1,8 @@
-var Playlist = require('../models/playlistModel');
+var mongoose = require('mongoose');
+var Playlist = require('mongoose').model('playlists');
+
+
+
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";

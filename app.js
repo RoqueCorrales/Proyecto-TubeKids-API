@@ -4,6 +4,7 @@ const db = mongoose.connect('mongodb://127.0.0.1:27017/api');
 const User = require('./models/userModel');
 const Video = require('./models/videoModel');
 const Profile = require('./models/profileModel');
+const Playlist = require('./models/playlistModel');
 const app = express();
 const cors = require('cors');
 var md_auth = require('../Proyecto-TubeKids-API/middleware/authenticate');
