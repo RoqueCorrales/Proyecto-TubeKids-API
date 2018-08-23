@@ -152,7 +152,7 @@ exports.findAllVideosWhereIDProfile = function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("api");
-        var query = { _id: req.params.id };
+        var query = { userId: req.params.id };
         dbo.collection("playlists").find(query).toArray(function (err, playlists) {
             if (err) {
                 res.status(422).send({ message: 'Error al seleccion a la playlist' });
@@ -163,4 +163,29 @@ exports.findAllVideosWhereIDProfile = function (req, res) {
 
         });
     });
+};
+//Get - Return all Profiles in the db
+
+/**
+ * Retorna todos los videos de un profile
+ * @method findAllVideosWhereIDProfile
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return lista de profiles
+ */
+exports.findAllVideosIDProfile = function (req, res) {
+    var list = [];
+    SongList.find(function (err, playlists) {
+        if (err) {
+            res.status(422).send({ message: 'Error al seleccion a la playlist' });
+        }
+        for(var i = 0; i < playlists.length;i++){
+       if(playlists[i].userId === req.params.id){
+        list.push[playlists[i]];
+
+       }
+       }
+       res.status(200).send({ list });
+    });
+    
 };
