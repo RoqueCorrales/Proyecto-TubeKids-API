@@ -224,3 +224,24 @@ function uploadVideo(req) {
         return true;
     })
 }
+
+// retun a specific video
+/**
+ * Retorna un especifico video
+ * @method findByName
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return video solicitado
+ */
+exports.findByName = function (req, res) {
+
+    Video.findByName(req.params.name, function (err, video) {
+        if (err) {
+            res.status(422);
+            res.json({ error: err });
+        }
+        res.status(200);
+        res.json(video);
+    });
+
+};

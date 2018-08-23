@@ -79,7 +79,7 @@ app.use('/api', user);
 var profile = express.Router();
 
 profile.route('/profiles')
-   // .get(md_auth.ensureAuth, ProfileCTRL.findAllProfiles)
+    // .get(md_auth.ensureAuth, ProfileCTRL.findAllProfiles)
     .post(md_auth.ensureAuth, ProfileCTRL.addProfile)
     .get(md_auth.ensureAuth, ProfileCTRL.findAllProfilesWhereStatusTRUE);
 
@@ -88,7 +88,7 @@ profile.route('/profiles/:id')
     .put(md_auth.ensureAuth, ProfileCTRL.updateProfile)
     .delete(md_auth.ensureAuth, ProfileCTRL.deleteProfile);
 
-    
+
 app.use('/api', profile);
 
 //API ROUTES VIDEO
@@ -105,6 +105,10 @@ video.route('/videos/:id')
     .put(md_auth.ensureAuth, VideoCTRL.updateVideo)
 
     .delete(md_auth.ensureAuth, VideoCTRL.deleteVideo);
+
+video.route('/videos/findByNamel/:name')
+    .get(md_auth.ensureAuth, VideoCTRL.findByName);
+
 
 video.route('/videos/updateVideoLocal/:id')
     .put(md_auth.ensureAuth, VideoCTRL.updateVideoLocal);
@@ -125,7 +129,7 @@ playlist.route('/playlists/:id')
     .put(md_auth.ensureAuth, PlaylistCTRL.updatePlaylist)
     .delete(md_auth.ensureAuth, PlaylistCTRL.deletePlaylist);
 
-app.use('/api', user);
+app.use('/api', playlist);
 
 
 
