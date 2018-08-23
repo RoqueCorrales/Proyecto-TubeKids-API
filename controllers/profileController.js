@@ -122,7 +122,7 @@ exports.deleteProfile = function (req, res) {
     req.body.approvalstatus = false;
     var update = req.body;
 
-    User.findByIdAndUpdate(req.params.id, update, (err, profileUpdated) => {
+    Profile.findByIdAndUpdate(req.params.id, update, (err, profileUpdated) => {
 
         if (err) {
             res.status(500).send({ message: 'Error al elimiar profile' });
