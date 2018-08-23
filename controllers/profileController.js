@@ -60,6 +60,7 @@ exports.addProfile = function (req, res) {
 
     profile.name = req.body.name;
     profile.userName = req.body.userName;
+    profile.userId = req.body.userId;
     profile.pin = req.body.pin;
     profile.birthDate = req.body.birthDate;
     profile.approvalstatus = true;
