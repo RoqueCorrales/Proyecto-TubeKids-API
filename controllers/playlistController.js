@@ -149,8 +149,6 @@ exports.deletePlaylist = function (req, res) {
 exports.findAllVideosWhereIDProfile = function (req, res) {
 
 
-    console.log(req.params.id);
-
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("api");
@@ -160,9 +158,9 @@ exports.findAllVideosWhereIDProfile = function (req, res) {
                 res.status(422).send({ message: 'Error al seleccion a la playlist' });
             }
             db.close();
-            res.status(200).send({ playlits});
-            
-         
+            res.status(200).send({ playlits });
+
+
         });
     });
 };

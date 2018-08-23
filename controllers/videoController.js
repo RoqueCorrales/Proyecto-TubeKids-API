@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Video = mongoose.model('videos');
 
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
 
 var path = require('path');
 
@@ -162,7 +164,7 @@ exports.updateVideoLocal = function (req, res) {
 exports.deleteVideo = function (req, res) {
 
 
-    Video.findByIdAndRemove(req.params.id,  (err, videoRemoved) => {
+    Video.findByIdAndRemove(req.params.id, (err, videoRemoved) => {
 
         if (err) {
             res.status(500).send({ message: 'Error al elimiar video' });
@@ -235,11 +237,19 @@ function uploadVideo(req) {
  */
 exports.findByName = function (req, res) {
 
-    Video.findByName(req.params.name, function (err, video) {
-        if (err) {
-            res.status(500).send({ message: 'Error al buscar' });
-        }
-        res.status(200).send({ video });
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("api");
+        var query = { video: req.params.name };
+        dbo.collection("videos").find(query).toArray(function (err, videos) {
+            if (err) {
+                res.status(422).send({ message: 'Error al buscar por nombre.' });
+            }
+            db.close();
+            res.status(200).send({ videos });
+
+
+        });
     });
 
 };
