@@ -152,7 +152,7 @@ exports.findAllVideosWhereIDProfile = function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("api");
-        var query = { userId: req.params.id };
+        var query = { _id: req.params.id };
         dbo.collection("playlists").find(query).toArray(function (err, playlists) {
             if (err) {
                 res.status(422).send({ message: 'Error al seleccion a la playlist' });
