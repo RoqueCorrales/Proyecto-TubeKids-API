@@ -135,3 +135,23 @@ exports.deleteProfile = function (req, res) {
 
     });
 }
+//Get - Return all Profiles in the db
+
+/**
+ * Retorna todos los perfiles de la base de datos con estatus true.
+ * @method findAllProfilesWhereStatusTRUE
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return lista de perfiles
+ */
+exports.findAllProfilesWhereStatusTRUE = function (req, res) {
+
+    Profile.find({ approvalstatus: { $eq: true } } )(function (err, profiles) {
+        if (err) {
+            res.status(422);
+            res.json({ error: err });
+        }
+        res.status(200);
+        res.json(profiles);
+    });
+};

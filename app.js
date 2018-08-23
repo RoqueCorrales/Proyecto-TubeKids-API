@@ -80,14 +80,15 @@ var profile = express.Router();
 
 profile.route('/profiles')
     .get(md_auth.ensureAuth, ProfileCTRL.findAllProfiles)
-    .post(md_auth.ensureAuth, ProfileCTRL.addProfile);
+    .post(md_auth.ensureAuth, ProfileCTRL.addProfile)
+    .get(md_auth.ensureAuth, ProfileCTRL.findAllProfilesWhereStatusTRUE);
 
 profile.route('/profiles/:id')
     .get(md_auth.ensureAuth, ProfileCTRL.findById)
     .put(md_auth.ensureAuth, ProfileCTRL.updateProfile)
     .delete(md_auth.ensureAuth, ProfileCTRL.deleteProfile);
 
-
+    
 app.use('/api', profile);
 
 //API ROUTES VIDEO

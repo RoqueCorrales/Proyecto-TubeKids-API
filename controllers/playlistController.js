@@ -52,7 +52,6 @@ exports.findById = function (req, res) {
  */
 exports.addPlaylist = function (req, res) {
 
-
     var playlist = new PLaylist();
 
     playlist.userId = req.body.userId;
