@@ -3,11 +3,11 @@ var Playlist = require('../models/playlistModel');
 //Get - Return all playlists in the db
 
 /**
- * Description
+ * Return all the playlists on the database.
  * @method findAllPlaylists
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return JSON de playlists
  */
 exports.findAllPlaylists = function(req,res){
 
@@ -23,11 +23,11 @@ exports.findAllPlaylists = function(req,res){
 
 // retun a specific playlist
 /**
- * Description
+ * Encuentra a especifico playlist
  * @method findById
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente id
+ * @param {} res response saliente al cliente
+ * @return playlist solicitado.
  */
 exports.findById = function(req, res){
     Playlist.findById(req.params.id, function(err,playlist){
@@ -44,11 +44,11 @@ exports.findById = function(req, res){
 // create a new playlist
 
 /**
- * Description
+ * crea una nueva playlist
  * @method addPlaylist
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return playlisy agregada
  */
 exports.addPlaylist = function(req, res){
 
@@ -74,11 +74,11 @@ exports.addPlaylist = function(req, res){
 
 
 /**
- * Description
+ * Actualiza un playlist
  * @method updatePlaylist
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return playlist actualizada.
  */
 exports.updatePlaylist = function(req,res){
     var update = req.body;
@@ -104,11 +104,11 @@ exports.updatePlaylist = function(req,res){
 // Delete a video
 
 /**
- * Description
+ * Elimina un video, en si lo pone en stand by.
  * @method deletePlaylist
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return codigo y mesaje de exito o de igual manera si no se lograra completar.
  */
 exports.deletePlaylist = function(req, res){
     req.body.approvalstatus = false;
@@ -123,7 +123,7 @@ exports.deletePlaylist = function(req, res){
             if(!videoUpdated){
                 res.status(404).send({message: 'No se ha podido eliminar el video'});
             }else{
-                res.status(200).send({video:videoUpdated});
+                res.status(200).send({message: 'Video eliminado'});
             }
         }
 

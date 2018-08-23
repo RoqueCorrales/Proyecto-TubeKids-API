@@ -12,11 +12,11 @@ var mailController = require('./mailController');
 //Get - Return all Users in the db
 
 /**
- * Description
+ * Retorna todos los usuarios de la base de datos
  * @method findAllUsers
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return retorna codigo + json de los usuarios
  */
 exports.findAllUsers = function(req,res){
 
@@ -32,11 +32,11 @@ exports.findAllUsers = function(req,res){
 
 // retun a specific user
 /**
- * Description
+ * SOlicita un usuario en especifico
  * @method findById
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente id
+ * @param {} res response saliente al cliente
+ * @return usuario solicitado
  */
 exports.findById = function(req, res){
     User.findById(req.params.id, function(err,user){
@@ -53,11 +53,11 @@ exports.findById = function(req, res){
 // create a new user
 
 /**
- * Description
+ * crea un nuevo usuario
  * @method addUser
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return usuario insertado
  */
 exports.addUser = function(req, res){
 
@@ -75,15 +75,12 @@ exports.addUser = function(req, res){
            user.lastName = req.body.lastName;
            user.country = req.body.country;
            user.password = hashedPassword;
-           //user.confirPassword = req.body.confirPassword;
            user.birthDate = req.body.birthDate;
            user.email = req.body.email;
            user.admin = req.body.admin;
            user.approvalstatus = true;
         
             
-       
-        
         
            user.save(function(err){
             if(err) {
@@ -95,14 +92,14 @@ exports.addUser = function(req, res){
                 "link" : "localhost:3000/api/users/confirmationEmail/"+user.id,
         
                 }
-                console.log(bodymail);
+                
 
             mailController.sendEmail(bodymail);
             res.status(201);
             res.json(user);
         });
         }else{
-            res.status(422).send({message: 'Sos menor de edad'});
+            res.status(401).send({message: 'Sos menor de edad'});
         }
        
     }else{
@@ -116,10 +113,10 @@ exports.addUser = function(req, res){
 
 // Validar edad
 /**
- * Description
+ * Valida la edad
  * @method validarEdad
  * @param {} fecha
- * @return 
+ * @return un boolean.
  */
 function validarEdad(fecha){
   
@@ -145,11 +142,11 @@ function validarEdad(fecha){
 // Put - Update a user
 
 /**
- * Description
+ * Actualiza un usuario en especifico
  * @method updateUser
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return codigo + usuario actualizado
  */
 exports.updateUser = function(req,res){
     var update = req.body;
@@ -173,11 +170,11 @@ exports.updateUser = function(req,res){
 // Delete a user
 
 /**
- * Description
+ * Elimina un usuario, cambia una propiedad para no eliminarla de la base de datos.
  * @method deleteUser
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return codigo + mensaje
  */
 exports.deleteUser = function(req, res){
     req.body.approvalstatus = false;
@@ -192,7 +189,7 @@ exports.deleteUser = function(req, res){
             if(!userUpdated){
                 res.status(404).send({message: 'No se ha podido eliminar el usuario'});
             }else{
-                res.status(200).send({user:userUpdated});
+                res.status(200).send({message: 'Usuario eliminado con exito'});
             }
         }
 
@@ -202,11 +199,11 @@ exports.deleteUser = function(req, res){
 
 
 /**
- * Description
+ * Actualiza el usuario despues del la confirmacion del email.
  * @method updateUserConfirmation
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return codigo + mensaje
  */
 exports.updateUserConfirmation = function(req,res){
     req.body.isVerificated = true;

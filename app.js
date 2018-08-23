@@ -22,16 +22,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-//configurar cabeceras http
-//app.use((req, res, next)=> {
-//res.header('Access-Control-Allow-Origin','*');
-//res.header('Acccess-COntrol-Allow-Headers','Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-COntrol-Allow-Request-Method');
-//res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,PUT, DELETE');
-//res.header('Allow','GET,POST,OPTIONS,PUT, DELETE');
-
-//next();
-//});
-
 
 
 var UserCTRL = require('./controllers/userController');
@@ -120,6 +110,7 @@ video.route('/videos/updateVideoLocal/:id')
 
 
 app.use('/api', video);
+
 //API ROUTES PLAYLIST
 
 var playlist = express.Router();

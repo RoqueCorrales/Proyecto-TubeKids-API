@@ -1,10 +1,10 @@
 
 /**
- * Description
+ * Sube un archivo en formato video.
  * @method uploadFile
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return codigo mas mensaje 
  */
 function uploadFile(req, res){
 	var videoId = req.params.id;

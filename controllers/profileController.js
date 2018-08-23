@@ -6,11 +6,11 @@ var Profile = mongoose.model('profiles');
 //Get - Return all Profiles in the db
 
 /**
- * Description
+ * Retorna todos los perfiles de la base de datos.
  * @method findAllProfiles
- * @param {} _req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return lista de perfiles
  */
 exports.findAllProfiles = function (_req, res) {
 
@@ -26,11 +26,11 @@ exports.findAllProfiles = function (_req, res) {
 
 // retun a specific profile
 /**
- * Description
+ * Retorna un especifico perfil
  * @method findById
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return perfil solicitado
  */
 exports.findById = function (req, res) {
     Profile.findById(req.params.id, function (err, profile) {
@@ -47,11 +47,11 @@ exports.findById = function (req, res) {
 // create a new profile
 
 /**
- * Description
+ * CRea un nuevo perfil
  * @method addProfile
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return  un nuevo perfil agregado
  */
 exports.addProfile = function (req, res) {
 
@@ -78,11 +78,11 @@ exports.addProfile = function (req, res) {
 // Put - Update a Profile
 
 /**
- * Description
+ * Actualiza un perfil 
  * @method updateProfile
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return codigo mas mensaje.
  */
 exports.updateProfile = function (req, res) {
     var update = req.body;
@@ -108,11 +108,11 @@ exports.updateProfile = function (req, res) {
 // Delete a profile
 
 /**
- * Description
+ * Elimina un perfil, en si lo edita.
  * @method deleteProfile
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return codigo + mensaje
  */
 exports.deleteProfile = function (req, res) {
     req.body.approvalstatus = false;
@@ -127,7 +127,7 @@ exports.deleteProfile = function (req, res) {
             if(!profileUpdated){
                 res.status(404).send({message: 'No se ha podido eliminar el profile'});
             }else{
-                res.status(200).send({profile:profileUpdated});
+                res.status(200).send({message: 'Profile eliminado'});
             }
         }
 

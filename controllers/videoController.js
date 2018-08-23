@@ -6,19 +6,15 @@ var path = require('path');
 
 
 
-//const express = require('express');
 
-//app.use(express.json());
-
-
-//Get - Return all Users in the db
+//Get - Return all Videos in the db
 
 /**
- * Description
+ * Retorna todos los videos en la base de datos
  * @method findAllVideos
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return  todos los videos guardados en la base de datos
  */
 exports.findAllVideos = function(req,res){
 
@@ -34,11 +30,11 @@ exports.findAllVideos = function(req,res){
 
 // retun a specific video
 /**
- * Description
+ * Retorna un especifico video
  * @method findById
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return video solicitado
  */
 exports.findById = function(req, res){
     Video.findById(req.params.id, function(err,video){
@@ -55,11 +51,11 @@ exports.findById = function(req, res){
 // create a new video
 
 /**
- * Description
+ * Agrega un nuevo video
  * @method addVideo
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return devuelve video guardado + codigo
  */
 exports.addVideo = function(req, res){
 
@@ -90,11 +86,11 @@ exports.addVideo = function(req, res){
 
 
 /**
- * Description
+ * Actualiza VIdeo
  * @method updateVideo
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return VIdeo actualizado
  */
 exports.updateVideo = function(req,res){
     var update = req.body;
@@ -117,11 +113,11 @@ exports.updateVideo = function(req,res){
 
 // updateVideoLocal
 /**
- * Description
+ * Actualiza un video en forma local
  * @method updateVideoLocal
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return codigo + mensaje y json del objeto
  */
 exports.updateVideoLocal = function(req,res){
     var update = req.body;
@@ -157,11 +153,11 @@ exports.updateVideoLocal = function(req,res){
 // Delete a video
 
 /**
- * Description
+ * DActualiza un video que sera eliminado 
  * @method deleteVideo
- * @param {} req
- * @param {} res
- * @return 
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return codigo + mensaje
  */
 exports.deleteVideo = function(req, res){
     req.body.approvalstatus = false;
@@ -176,7 +172,7 @@ exports.deleteVideo = function(req, res){
             if(!videoUpdated){
                 res.status(404).send({message: 'No se ha podido eliminar el video'});
             }else{
-                res.status(200).send({video:videoUpdated});
+                res.status(200).send({message: 'Video eliminado'});
             }
         }
 
@@ -188,10 +184,10 @@ exports.deleteVideo = function(req, res){
 
 
 /**
- * Description
+ * Subir archivo en forma local haciendo una actualizacion
  * @method uploadFile
  * @param {} filename
- * @return 
+ * @return un path
  */
 function uploadFile(filename){
     
@@ -216,10 +212,10 @@ function uploadFile(filename){
 
 
 /**
- * Description
+ * Actualiza un video
  * @method uploadVideo
- * @param {} req
- * @return 
+ * @param {} req con datos del file
+ * @return un boolean false si no hay permisos, true si si lo logra.
  */
 function uploadVideo(req){
     let EDFile = req.files.file
