@@ -9,7 +9,7 @@ const cors = require('cors');
 var md_auth = require('../Proyecto-TubeKids-API/middleware/authenticate');
 
 var multipart = require('connect-multiparty');
-var md_upload = multipart({uploadDir: './uploads/videos'});
+var md_upload = multipart({ uploadDir: './uploads/videos' });
 
 const fileUpload = require('express-fileupload');
 
@@ -49,7 +49,7 @@ app.get('/', (request, response) => {
 var login = express.Router();
 
 login.route('/login')
-.post(LoginController.findUserUsername);
+    .post(LoginController.findUserUsername);
 
 
 app.use('/api', login);
@@ -60,16 +60,16 @@ app.use('/api', login);
 var user = express.Router();
 
 user.route('/users')
-.get(md_auth.ensureAuth, UserCTRL.findAllUsers)
-.post(UserCTRL.addUser);
+    .get(md_auth.ensureAuth, UserCTRL.findAllUsers)
+    .post(UserCTRL.addUser);
 
 user.route('/users/:id')
-.get(md_auth.ensureAuth,UserCTRL.findById)
-.put(md_auth.ensureAuth,UserCTRL.updateUser)
-.delete(md_auth.ensureAuth,UserCTRL.deleteUser);
+    .get(md_auth.ensureAuth, UserCTRL.findById)
+    .put(md_auth.ensureAuth, UserCTRL.updateUser)
+    .delete(md_auth.ensureAuth, UserCTRL.deleteUser);
 
 user.route('/users/confirmationEmail/:id')
-.get(UserCTRL.updateUserConfirmation)
+    .get(UserCTRL.updateUserConfirmation)
 
 app.use('/api', user);
 
@@ -79,13 +79,13 @@ app.use('/api', user);
 var profile = express.Router();
 
 profile.route('/profiles')
-.get(md_auth.ensureAuth,ProfileCTRL.findAllProfiles)
-.post(md_auth.ensureAuth,ProfileCTRL.addProfile);
+    .get(md_auth.ensureAuth, ProfileCTRL.findAllProfiles)
+    .post(md_auth.ensureAuth, ProfileCTRL.addProfile);
 
 profile.route('/profiles/:id')
-.get(md_auth.ensureAuth,ProfileCTRL.findById)
-.put(md_auth.ensureAuth,ProfileCTRL.updateProfile)
-.delete(md_auth.ensureAuth,ProfileCTRL.deleteProfile);
+    .get(md_auth.ensureAuth, ProfileCTRL.findById)
+    .put(md_auth.ensureAuth, ProfileCTRL.updateProfile)
+    .delete(md_auth.ensureAuth, ProfileCTRL.deleteProfile);
 
 
 app.use('/api', profile);
@@ -95,18 +95,18 @@ app.use('/api', profile);
 var video = express.Router();
 
 video.route('/videos')
-.get(md_auth.ensureAuth,VideoCTRL.findAllVideos)
-.post(VideoCTRL.addVideo);
+    .get(md_auth.ensureAuth, VideoCTRL.findAllVideos)
+    .post(VideoCTRL.addVideo);
 
 video.route('/videos/:id')
-.get(md_auth.ensureAuth,VideoCTRL.findById)
+    .get(md_auth.ensureAuth, VideoCTRL.findById)
 
-.put(md_auth.ensureAuth,VideoCTRL.updateVideo)
+    .put(md_auth.ensureAuth, VideoCTRL.updateVideo)
 
-.delete(md_auth.ensureAuth,VideoCTRL.deleteVideo);
+    .delete(md_auth.ensureAuth, VideoCTRL.deleteVideo);
 
 video.route('/videos/updateVideoLocal/:id')
-.put(md_auth.ensureAuth,VideoCTRL.updateVideoLocal);
+    .put(md_auth.ensureAuth, VideoCTRL.updateVideoLocal);
 
 
 app.use('/api', video);
@@ -116,13 +116,13 @@ app.use('/api', video);
 var playlist = express.Router();
 
 playlist.route('/playlists')
-.get(md_auth.ensureAuth, PlaylistCTRL.findAllPlaylists)
-.post(md_auth.ensureAuth,PlaylistCTRL.addPlaylist);
+    .get(md_auth.ensureAuth, PlaylistCTRL.findAllPlaylists)
+    .post(md_auth.ensureAuth, PlaylistCTRL.addPlaylist);
 
 playlist.route('/playlists/:id')
-.get(md_auth.ensureAuth,PlaylistCTRL.findById)
-.put(md_auth.ensureAuth,PlaylistCTRL.updatePlaylist)
-.delete(md_auth.ensureAuth,PlaylistCTRL.deletePlaylist);
+    .get(md_auth.ensureAuth, PlaylistCTRL.findById)
+    .put(md_auth.ensureAuth, PlaylistCTRL.updatePlaylist)
+    .delete(md_auth.ensureAuth, PlaylistCTRL.deletePlaylist);
 
 app.use('/api', user);
 
@@ -130,7 +130,7 @@ app.use('/api', user);
 
 
 // handle 404
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
     res.status(404);
     res.send({ error: 'Not found' });
     return;

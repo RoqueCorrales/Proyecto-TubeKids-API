@@ -18,12 +18,12 @@ var mailController = require('./mailController');
  * @param {} res response saliente al cliente
  * @return retorna codigo + json de los usuarios
  */
-exports.findAllUsers = function(req,res){
+exports.findAllUsers = function (req, res) {
 
-    User.find(function(err,users){
-        if(err) {
+    User.find(function (err, users) {
+        if (err) {
             res.status(422);
-            res.json({error: err});
+            res.json({ error: err });
         }
         res.status(200);
         res.json(users);
@@ -38,11 +38,11 @@ exports.findAllUsers = function(req,res){
  * @param {} res response saliente al cliente
  * @return usuario solicitado
  */
-exports.findById = function(req, res){
-    User.findById(req.params.id, function(err,user){
-        if(err) {
+exports.findById = function (req, res) {
+    User.findById(req.params.id, function (err, user) {
+        if (err) {
             res.status(422);
-            res.json({error: err});
+            res.json({ error: err });
         }
         res.status(200);
         res.json(user);
@@ -59,51 +59,51 @@ exports.findById = function(req, res){
  * @param {} res response saliente al cliente
  * @return usuario insertado
  */
-exports.addUser = function(req, res){
+exports.addUser = function (req, res) {
 
 
-    if(validator.validate(req.body.email)){
+    if (validator.validate(req.body.email)) {
 
-        if(  validarEdad(req.body.birthDate)){
+        if (validarEdad(req.body.birthDate)) {
             var hashedPassword = bcrypt.hashSync(req.body.password, 8);
-   
-            var user = new User();
-        
-           user.name = req.body.name;
-          
-       
-           user.lastName = req.body.lastName;
-           user.country = req.body.country;
-           user.password = hashedPassword;
-           user.birthDate = req.body.birthDate;
-           user.email = req.body.email;
-           user.admin = req.body.admin;
-           user.approvalstatus = true;
-        
-            
-        
-           user.save(function(err){
-            if(err) {
-                res.status(422);
-                res.json({error: err});
-            }
-            var bodymail = {
-                "email" :user.email,
-                "link" : "localhost:3000/api/users/confirmationEmail/"+user.id,
-        
-                }
-                
 
-            mailController.sendEmail(bodymail);
-            res.status(201);
-            res.json(user);
-        });
-        }else{
-            res.status(401).send({message: 'Sos menor de edad'});
+            var user = new User();
+
+            user.name = req.body.name;
+
+
+            user.lastName = req.body.lastName;
+            user.country = req.body.country;
+            user.password = hashedPassword;
+            user.birthDate = req.body.birthDate;
+            user.email = req.body.email;
+            user.admin = req.body.admin;
+            user.approvalstatus = true;
+
+
+
+            user.save(function (err) {
+                if (err) {
+                    res.status(422);
+                    res.json({ error: err });
+                }
+                var bodymail = {
+                    "email": user.email,
+                    "link": "localhost:3000/api/users/confirmationEmail/" + user.id,
+
+                }
+
+
+                mailController.sendEmail(bodymail);
+                res.status(201);
+                res.json(user);
+            });
+        } else {
+            res.status(401).send({ message: 'Sos menor de edad' });
         }
-       
-    }else{
-        res.status(422).send({message: 'Correo no valido'});
+
+    } else {
+        res.status(422).send({ message: 'Correo no valido' });
 
     }
 
@@ -118,20 +118,20 @@ exports.addUser = function(req, res){
  * @param {} fecha
  * @return un boolean.
  */
-function validarEdad(fecha){
-  
+function validarEdad(fecha) {
+
     var m = moment(fecha, "MM-DD-YYYY");
     edad = m.fromNow().split(" ")[0];
-    
-    if(edad<18){
-    
+
+    if (edad < 18) {
+
         return false
-       
-    }else{
-     
+
+    } else {
+
         return true
 
-       
+
     }
 
 
@@ -148,22 +148,22 @@ function validarEdad(fecha){
  * @param {} res response saliente al cliente
  * @return codigo + usuario actualizado
  */
-exports.updateUser = function(req,res){
+exports.updateUser = function (req, res) {
     var update = req.body;
-    User.findByIdAndUpdate(req.params.id,update,(err, userUpdated)=>{
-      
-        if(err){
-            res.status(500).send({message: 'Error al actualizar el usuario'});
+    User.findByIdAndUpdate(req.params.id, update, (err, userUpdated) => {
 
-        }else{
-            if(!userUpdated){
-                res.status(404).send({message: 'No se ha podido actualizar el usuario'});
-            }else{
-                res.status(200).send({user:userUpdated});
+        if (err) {
+            res.status(500).send({ message: 'Error al actualizar el usuario' });
+
+        } else {
+            if (!userUpdated) {
+                res.status(404).send({ message: 'No se ha podido actualizar el usuario' });
+            } else {
+                res.status(200).send({ user: userUpdated });
             }
         }
 
-        
+
     });
 }
 
@@ -176,24 +176,24 @@ exports.updateUser = function(req,res){
  * @param {} res response saliente al cliente
  * @return codigo + mensaje
  */
-exports.deleteUser = function(req, res){
+exports.deleteUser = function (req, res) {
     req.body.approvalstatus = false;
     var update = req.body;
- 
-    User.findByIdAndUpdate(req.params.id,update,(err, userUpdated)=>{
-      
-        if(err){
-            res.status(500).send({message: 'Error al elimiar usuario'});
 
-        }else{
-            if(!userUpdated){
-                res.status(404).send({message: 'No se ha podido eliminar el usuario'});
-            }else{
-                res.status(200).send({message: 'Usuario eliminado con exito'});
+    User.findByIdAndUpdate(req.params.id, update, (err, userUpdated) => {
+
+        if (err) {
+            res.status(500).send({ message: 'Error al elimiar usuario' });
+
+        } else {
+            if (!userUpdated) {
+                res.status(404).send({ message: 'No se ha podido eliminar el usuario' });
+            } else {
+                res.status(200).send({ message: 'Usuario eliminado con exito' });
             }
         }
 
-        
+
     });
 }
 
@@ -205,23 +205,23 @@ exports.deleteUser = function(req, res){
  * @param {} res response saliente al cliente
  * @return codigo + mensaje
  */
-exports.updateUserConfirmation = function(req,res){
+exports.updateUserConfirmation = function (req, res) {
     req.body.isVerificated = true;
     var update = req.body;
-    User.findByIdAndUpdate(req.params.id,update,(err, userUpdated)=>{
-      
-        if(err){
-            res.status(500).send({message: 'Error al confirmar el usuario'});
+    User.findByIdAndUpdate(req.params.id, update, (err, userUpdated) => {
 
-        }else{
-            if(!userUpdated){
-                res.status(404).send({message: 'No se ha podido confirmar la cuenta'});
-            }else{
-                res.status(200).send({message: 'Confirmacion exitosa, BIENVENIDO A TUBEKIDS'});
+        if (err) {
+            res.status(500).send({ message: 'Error al confirmar el usuario' });
+
+        } else {
+            if (!userUpdated) {
+                res.status(404).send({ message: 'No se ha podido confirmar la cuenta' });
+            } else {
+                res.status(200).send({ message: 'Confirmacion exitosa, BIENVENIDO A TUBEKIDS' });
             }
         }
 
-        
+
     });
 }
 

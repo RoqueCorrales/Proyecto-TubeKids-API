@@ -55,7 +55,7 @@ exports.findById = function (req, res) {
  */
 exports.addProfile = function (req, res) {
 
-  
+
     var profile = new Profile();
 
     profile.name = req.body.name;
@@ -86,20 +86,20 @@ exports.addProfile = function (req, res) {
  */
 exports.updateProfile = function (req, res) {
     var update = req.body;
-    Profile.findByIdAndUpdate(req.params.id,update,(err, profileUpdated)=>{
+    Profile.findByIdAndUpdate(req.params.id, update, (err, profileUpdated) => {
 
-        if(err){
-            res.status(500).send({message: 'Error al actualizar el profile'});
+        if (err) {
+            res.status(500).send({ message: 'Error al actualizar el profile' });
 
-        }else{
-            if(!profileUpdated){
-                res.status(404).send({message: 'No se ha podido actualizar el profile'});
-            }else{
-                res.status(200).send({profile:profileUpdated});
+        } else {
+            if (!profileUpdated) {
+                res.status(404).send({ message: 'No se ha podido actualizar el profile' });
+            } else {
+                res.status(200).send({ profile: profileUpdated });
             }
         }
 
-        
+
     });
 }
 
@@ -117,20 +117,20 @@ exports.updateProfile = function (req, res) {
 exports.deleteProfile = function (req, res) {
     req.body.approvalstatus = false;
     var update = req.body;
- 
-    User.findByIdAndUpdate(req.params.id,update,(err, profileUpdated)=>{
-      
-        if(err){
-            res.status(500).send({message: 'Error al elimiar profile'});
 
-        }else{
-            if(!profileUpdated){
-                res.status(404).send({message: 'No se ha podido eliminar el profile'});
-            }else{
-                res.status(200).send({message: 'Profile eliminado'});
+    User.findByIdAndUpdate(req.params.id, update, (err, profileUpdated) => {
+
+        if (err) {
+            res.status(500).send({ message: 'Error al elimiar profile' });
+
+        } else {
+            if (!profileUpdated) {
+                res.status(404).send({ message: 'No se ha podido eliminar el profile' });
+            } else {
+                res.status(200).send({ message: 'Profile eliminado' });
             }
         }
 
-        
+
     });
 }

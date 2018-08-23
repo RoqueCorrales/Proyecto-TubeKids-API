@@ -9,12 +9,12 @@ var Playlist = require('../models/playlistModel');
  * @param {} res response saliente al cliente
  * @return JSON de playlists
  */
-exports.findAllPlaylists = function(req,res){
+exports.findAllPlaylists = function (req, res) {
 
-    Playlist.find(function(err,playlists){
-        if(err) {
+    Playlist.find(function (err, playlists) {
+        if (err) {
             res.status(422);
-            res.json({error: err});
+            res.json({ error: err });
         }
         res.status(200);
         res.json(playlists);
@@ -29,11 +29,11 @@ exports.findAllPlaylists = function(req,res){
  * @param {} res response saliente al cliente
  * @return playlist solicitado.
  */
-exports.findById = function(req, res){
-    Playlist.findById(req.params.id, function(err,playlist){
-        if(err) {
+exports.findById = function (req, res) {
+    Playlist.findById(req.params.id, function (err, playlist) {
+        if (err) {
             res.status(422);
-            res.json({error: err});
+            res.json({ error: err });
         }
         res.status(200);
         res.json(playlist);
@@ -50,24 +50,24 @@ exports.findById = function(req, res){
  * @param {} res response saliente al cliente
  * @return playlisy agregada
  */
-exports.addPlaylist = function(req, res){
+exports.addPlaylist = function (req, res) {
 
-    
+
     var playlist = new PLaylist();
-    
+
     playlist.userId = req.body.userId;
     playlist.videoId = req.body.videoId;
 
 
-  
-   playlist.save(function(err){
-    if(err) {
-        res.status(422);
-        res.json({error: err});
-    }
-    res.status(201);
-    res.json(playlist);
-});
+
+    playlist.save(function (err) {
+        if (err) {
+            res.status(422);
+            res.json({ error: err });
+        }
+        res.status(201);
+        res.json(playlist);
+    });
 };
 
 // Put - Update a playlist
@@ -80,22 +80,22 @@ exports.addPlaylist = function(req, res){
  * @param {} res response saliente al cliente
  * @return playlist actualizada.
  */
-exports.updatePlaylist = function(req,res){
+exports.updatePlaylist = function (req, res) {
     var update = req.body;
-    Playlist.findByIdAndUpdate(req.params.id,update,(err, playlistUpdated)=>{
-      
-        if(err){
-            res.status(500).send({message: 'Error al actualizar la playlist'});
+    Playlist.findByIdAndUpdate(req.params.id, update, (err, playlistUpdated) => {
 
-        }else{
-            if(!playlistUpdated){
-                res.status(404).send({message: 'No se ha podido actualizar el video'});
-            }else{
-                res.status(200).send({playlist:playlistUpdated});
+        if (err) {
+            res.status(500).send({ message: 'Error al actualizar la playlist' });
+
+        } else {
+            if (!playlistUpdated) {
+                res.status(404).send({ message: 'No se ha podido actualizar el video' });
+            } else {
+                res.status(200).send({ playlist: playlistUpdated });
             }
         }
 
-        
+
     });
 }
 
@@ -110,23 +110,23 @@ exports.updatePlaylist = function(req,res){
  * @param {} res response saliente al cliente
  * @return codigo y mesaje de exito o de igual manera si no se lograra completar.
  */
-exports.deletePlaylist = function(req, res){
+exports.deletePlaylist = function (req, res) {
     req.body.approvalstatus = false;
     var update = req.body;
- 
-    Video.findByIdAndUpdate(req.params.id,update,(err, videoUpdated)=>{
-      
-        if(err){
-            res.status(500).send({message: 'Error al elimiar video'});
 
-        }else{
-            if(!videoUpdated){
-                res.status(404).send({message: 'No se ha podido eliminar el video'});
-            }else{
-                res.status(200).send({message: 'Video eliminado'});
+    Video.findByIdAndUpdate(req.params.id, update, (err, videoUpdated) => {
+
+        if (err) {
+            res.status(500).send({ message: 'Error al elimiar video' });
+
+        } else {
+            if (!videoUpdated) {
+                res.status(404).send({ message: 'No se ha podido eliminar el video' });
+            } else {
+                res.status(200).send({ message: 'Video eliminado' });
             }
         }
 
-        
+
     });
 }
