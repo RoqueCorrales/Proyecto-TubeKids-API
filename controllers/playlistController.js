@@ -149,7 +149,7 @@ exports.findAllVideosWhereIDProfile = function (req, res) {
         if (err) throw err;
         var dbo = db.db("api");
         var query = { userId: req.params.id };
-        dbo.collection("playlist").find(query).toArray(function (err, playlists) {
+        dbo.collection("playlists").find(query).toArray(function (err, playlists) {
             if (err) {
                 res.status(422);
                 res.json({ error: err });
