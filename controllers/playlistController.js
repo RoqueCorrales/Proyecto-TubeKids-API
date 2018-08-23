@@ -1,5 +1,9 @@
 var Playlist = require('../models/playlistModel');
 
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+
 //Get - Return all playlists in the db
 
 /**
@@ -129,3 +133,30 @@ exports.deletePlaylist = function (req, res) {
 
     });
 }
+//Get - Return all Profiles in the db
+
+/**
+ * Retorna todos los videos de un profile
+ * @method findAllVideosWhereIDProfile
+ * @param {} req request proveniente del cliente
+ * @param {} res response saliente al cliente
+ * @return lista de profiles
+ */
+exports.findAllVideosWhereIDProfile = function (req, res) {
+
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("api");
+        var query = { userId: req.params.id };
+        dbo.collection("playlist").find(query).toArray(function (err, playlists) {
+            if (err) {
+                res.status(422);
+                res.json({ error: err });
+            }
+            res.status(200);
+            res.json(playlists);
+            db.close();
+        });
+    });
+};
