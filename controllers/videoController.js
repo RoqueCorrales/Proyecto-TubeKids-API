@@ -240,7 +240,7 @@ exports.findByName = function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("api");
-        var query = { video: req.params.name };
+        var query = { name: req.params.name };
         dbo.collection("videos").find(query).toArray(function (err, videos) {
             if (err) {
                 res.status(422).send({ message: 'Error al buscar por nombre.' });
