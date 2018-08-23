@@ -162,7 +162,7 @@ exports.updateVideoLocal = function (req, res) {
 exports.deleteVideo = function (req, res) {
 
 
-    Video.findByIdAndRemove(req.params.id, update, (err, videoRemoved) => {
+    Video.findByIdAndRemove(req.params.id,  (err, videoRemoved) => {
 
         if (err) {
             res.status(500).send({ message: 'Error al elimiar video' });
