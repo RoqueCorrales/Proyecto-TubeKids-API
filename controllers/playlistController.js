@@ -158,7 +158,7 @@ exports.findAllVideosWhereIDProfile = function (req, res) {
                 res.status(422).send({ message: 'Error al seleccion a la playlist' });
             }
             db.close();
-            res.status(200).send({ playlits });
+            res.status(200).send({ playlists });
 
 
         });
