@@ -160,16 +160,15 @@ exports.updateVideoLocal = function (req, res) {
  * @return codigo + mensaje
  */
 exports.deleteVideo = function (req, res) {
-    req.body.approvalstatus = false;
-    var update = req.body;
 
-    Video.findByIdAndUpdate(req.params.id, update, (err, videoUpdated) => {
+
+    Video.findByIdAndRemove(req.params.id, update, (err, videoRemoved) => {
 
         if (err) {
             res.status(500).send({ message: 'Error al elimiar video' });
 
         } else {
-            if (!videoUpdated) {
+            if (!videoRemoved) {
                 res.status(404).send({ message: 'No se ha podido eliminar el video' });
             } else {
                 res.status(200).send({ message: 'Video eliminado' });
