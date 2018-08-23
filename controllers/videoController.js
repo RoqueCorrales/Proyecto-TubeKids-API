@@ -237,11 +237,9 @@ exports.findByName = function (req, res) {
 
     Video.findByName(req.params.name, function (err, video) {
         if (err) {
-            res.status(422);
-            res.json({ error: err });
+            res.status(500).send({ message: 'Error al buscar' });
         }
-        res.status(200);
-        res.json(video);
+        res.status(200).send({ video });
     });
 
 };
